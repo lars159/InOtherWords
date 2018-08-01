@@ -1,0 +1,34 @@
+@font-face {
+    font-family: 'itim';
+    src: url('assets/fonts/Itim-Regular.ttf');
+} 
+
+$beige-lighter: #FFFF00;
+$body-background-color: $beige-lighter;
+$family-primary: 'itim';
+
+.coin {  
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    font-size: 70px;
+    color: #000;
+    line-height: 500px;
+    text-align: center;
+    background: #fff;
+    margin: 0 auto;
+    border: 2px solid rgb(0, 110, 255);
+    transition: 0.8s;
+}
+
+.flip {
+    transform: rotateY(180deg);
+    
+}
+
+body {
+    letter-spacing: 1px;
+}
+     
+@import "../../node_modules/bulma/bulma.sass";
+ 
