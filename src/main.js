@@ -3,6 +3,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import App from './App.vue'
 import Home from './views/Home/Home.vue'
+import Coin from './components/Coin.vue'
 import Setup from './views/Setup/Setup.vue'
 import Score from './views/Score/Score.vue'
 import Play from './views/Play/Play.vue'
@@ -18,7 +19,9 @@ Vue.config.productionTip = false
 
 
 Vue.use(VueRouter);
-
+const components =  {
+  'coin': Coin 
+}
 const routes = [
     { path: '/', component: Home },
     { path: '/setup', component: Setup },
@@ -33,6 +36,7 @@ const routes = [
  
 const app = new Vue({
     router,
+    components,
     el: '#app',
     render: h => h(App)
   })

@@ -3,16 +3,14 @@
         <div class="ready" v-if="status == 'ready'">
             <h1 class="title">Get ready {{player.name}}</h1>
             <p>The rules are you may not say the word only expline it and if it's to hard presss skip to get the next word</p>
-        <div class="coin"> Diffrent words </div>
-
+        <Coin :question="{ src : 'In other words'}" :isFlip="isFlip"></Coin>
         <nav class="navbar  is-fixed-bottom" role="navigation" aria-label="main navigation">
             <button class="button is-link is-large is-fullwidth" v-on:click="start">Start</button>
         </nav>
         </div>
 
-        <div class="gameon" v-if="status == 'gameon'">
-            <audio src="ticks.ogg"></audio>
-            <div class="coin" :class="{flip: isFlip}"> {{question.src}} </div>
+        <div class="gameon" v-if="status == 'gameon'"> 
+            <Coin :question="question" :isFlip="isFlip"></Coin>
             <nav class="navbar  is-fixed-bottom" role="navigation" aria-label="main navigation"> 
                 <button class="button is-link is-danger is-large answer" @click="answer(false)">Skip</button>
                 <button class="button is-link  is-success is-large answer" @click="answer(true)">Correct</button>
@@ -34,11 +32,11 @@
 
                     <div class="control">
                         <label class="radio">
-                            <input type="radio" name="answer" v-bind:value="true" v-model="question.result" @click="change(question, true)">
+                            <input type="radio" :value="true" v-model="question.result" @click="change(question, true)">
                             Correct
                         </label>
                         <label class="radio">
-                            <input type="radio" name="answer"  v-bind:value="false" v-model="question.result" @click="change(question, false)">
+                            <input type="radio" :value="false" v-model="question.result" @click="change(question, false)">
                             Incorrect
                         </label>
                     </div> 
@@ -52,9 +50,9 @@
 
     import QuestionService from '../../services/questionService';
     import PlayerService from '../../services/playerService';
-    import GameService from '../../services/gameService';
-
-
+    import GameService from '../../services/gameService'; 
+    import Coin from '../../components/Coin.vue';
+    import Vue from 'vue';
     export default{
         data(){
             return {
@@ -73,6 +71,9 @@
                 return value.filter( x  => x.result ).length;
             }
         },
+        components : {
+            Coin
+        },
           methods: {
               start : function () {
                   this.status = 'gameon';
@@ -81,12 +82,13 @@
                   this.player.rounds.unshift(this.round);
                   this.question = new QuestionService().next();
                   this.round.questions.push(this.question);
-                  this.audio = new Audio(require('./ticks.ogg'));
+                  this.audio = new Audio('./dist/ticks.ogg');
+                  this.audio.loop = true;
                   this.audio.play();
                   setTimeout(function(){
                       self.audio.pause();
-                      self.audio = new Audio(require('./bling.ogg'));
-                      audio.play();
+                      self.audio = new Audio('./dist/bling.ogg');
+                      self.audio.play();
                       self.status = 'done'; 
                       let allQuestions = self.player.rounds.reduce((totQ, qs) => totQ.concat(qs.questions), []);
                       self.totCorrect = allQuestions.filter((q) => q.result).length;

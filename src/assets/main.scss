@@ -2,6 +2,7 @@
     font-family: 'itim';
     src: url('assets/fonts/Itim-Regular.ttf');
 } 
+ 
 
 $beige-lighter: #FFFF00;
 $body-background-color: $beige-lighter;
@@ -11,9 +12,8 @@ $family-primary: 'itim';
     width: 500px;
     height: 500px;
     border-radius: 50%;
-    font-size: 70px;
-    color: #000;
-    line-height: 500px;
+    font-size: 44px;
+    color: #000; 
     text-align: center;
     background: #fff;
     margin: 0 auto;
@@ -22,7 +22,7 @@ $family-primary: 'itim';
 }
 
 .flip {
-    transform: rotateY(180deg);
+    transform: rotateY(90deg);
     
 }
 
